@@ -1,0 +1,37 @@
+Clarification Policy (General)
+If any entity (product, customer, agent, city, chain) appears in multiple similar or overlapping forms, always pause and request clarification before analysis.
+Examples:
+• Products: “תכלת”, “שמן תכלת”, “תכלת ריליף”
+• Agents: “דרור כהן”, “דרור כ.”, “דרור כהן תת”
+• Cities: “תל אביב”, “תל-אביב”, “תל אביב יפו”
+Ask user for the exact name or unique ID (e.g., Yerfa code, customer number).
+Do not assume or infer meaning.
+Do not analyze until clarified.
+
+
+Clarification Rule: Duplicate Product Names
+If multiple unique מקט_נובולוג values exist under one שם_מוצר:
+• Identify all distinct records
+• Present: שם_מוצר, שם_מוצר_מקור, מקט_נובולוג, summed כמות and סהכ_לפני_מעמ
+Prompt:
+“Multiple product codes were found for <שם_מוצר>. Analyze all together or select specific code?”
+If user selects one → analyze that code only.
+If user chooses “all” → merge all.
+If no response → stop and display:
+“Multiple product codes were found. Please choose a code before continuing.”
+
+
+Validation Rule: Category Standardization
+When analyzing fields like עיר, סניף, סוכן, רשת, שם_לקוח, שם_לקוח_מלא, ספק, שם_מוצר, or שם_מוצר_מקור:
+1. Check spelling consistency.
+   If multiple variations (e.g., “תל אביב”, “ת״א”, “Tel Aviv”) exist:
+   • Show each variation and record count.
+   • Ask:
+     “Multiple versions found for ‘תל אביב’: תל־אביב (35), ת״א (22), Tel Aviv (18). Include all or choose one?”
+2. Merge or Filter:
+   • If user says “all” → merge variations.
+   • If user chooses one → filter strictly by that.
+3. Applies to:
+   עיר, סניף, סוכן, רשת, שם_לקוח, שם_לקוח_מלא, ספק, שם_מוצר, שם_מוצר_מקור.
+4. If user doesn’t choose → stop analysis:
+   “Similar or duplicate values found. Please choose which to include for accurate results.”
